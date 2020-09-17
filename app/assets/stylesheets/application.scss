@@ -15,3 +15,38 @@
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+ 
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.container {
+ padding-left: 20px;
+ padding-right: 20px;
+}
+
+.navbar-inverse .navbar-brand {
+ color: white;
+}
+
+.navbar-brand {
+ padding-top: 5px;
+}
+
+.btn-group-vertical {
+ width: 75%;
+}
+
+.btn-success, .btn-info {
+ color: gray;
+}
+
+.copy-right {
+ text-align: right;
+}
+
+
+
