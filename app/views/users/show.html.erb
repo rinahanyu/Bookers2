@@ -3,37 +3,73 @@
     
 
 
-  <div class="col-lg-4">
-    <h1>User info</h1>
+  <div class="col-xs-4">
+    <div class="user-info">
+    <h2>User info</h2>
+    <table class="table">
+       <thead>
+        <tr>
+          <td>
+            <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+          </td>
+          <td></td>
+        </tr>
+        </thead>
+        
+       <tbody>
+          <tr>
+            <th>name</tdh>
+            <th><%= @user.name %></th>
+          </tr>
+          <tr>
+            <th>introduction</th>
+            <th><%= @user.introduction %></th>
+          </tr>
+        </tbody>
+    </table>
+
     
-    <h1>New book</h1>
-  　<%= form_with model: @book, url:'/books', local:true do |f| %>
+      <%= link_to edit_user_path(@user) do %>
+        <button type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+        </button>
+      <% end %>
+    
+    </div>
+    
+    
+    <div class="new-book">
+    <h2>New book</h2>
+      <%= form_with model: @book, url:'/books', local:true do |f| %>
       <h5>Title</h5>
-        <%= f.text_field :title %>
+        <%= f.text_field :title, :class => 'title-field' %>
       <h5>Opinion</h5>
-        <%= f.text_area :body %>
-      <p><%= f.submit ' Create Book ' %></p>
+        <%= f.text_area :body, :class => 'body-field' %>
+      <p><%= f.submit ' Create Book ', :class => 'submit' %></p>
     <% end %>
   </div>
+  </div>
   
-  <div class="col-lg-8">
-    <h1>Books</h1>
-      <table>
+  <div class="col-xs-8">
+    <h2>Books</h2>
+      <table class="table table-hover">
+        <thead>
         <tr>
           <th></th>
           <th>Title</th>
           <th>Opinion</th>
         </tr>
+        </thead>
       
-      <% if @books.present? %>
+      <tbody>
       <% @books.each do |book| %>
         <tr>
-          <td>画像</td>
-          <td><%= link_to "#{book.title}", book_path(book) %></td>
+          <td><%= attachment_image_tag @user, :profile_image, format: 'jpeg', fallback: "no_image.jpg", size: "50x50" %></td>
+          <td><%= link_to book.title, book_path(book), {class: "table-link"} %></td>
           <td><%= book.body %></td>
         </tr>
       <% end %>
-      <% end %>
+      </tbody>
       
     </table>
   </div>
