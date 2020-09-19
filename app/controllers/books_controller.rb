@@ -8,7 +8,7 @@ class BooksController < ApplicationController
   
   def show
     @book = Book.new
-    @book_now = Book.find(params[:id])
+    @book1 = Book.find(params[:id])
   end
   
   def create
@@ -44,7 +44,9 @@ class BooksController < ApplicationController
   end
   
   def ensure_correct_user
-    if current_user.id != params[:id].to_i
+    @book = Book.find(params[:id])
+    @user = User.find(@book.user_id)
+    if current_user.id != @user.id
       redirect_to books_path 
     end
   end

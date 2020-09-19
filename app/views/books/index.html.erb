@@ -1,44 +1,45 @@
 <div class="container">
   
-   <% if @book.errors.any? %>
+  <% if @book.errors.any? %>
     <div class = "error">
       <h5>
         <%= @book.errors.count %> errors prohibited this o from being saved:
       </h5>
       <ul>
-      <% @book.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div> 
   <% end %>
   
   <div class="row">
-  <div class="col-xs-4">
+  <div class="col-xs-3">
+    
     <div class="user-info">
     <h2>User info</h2>
      <table class="table">
-       <thead>
+      <thead>
         <tr>
           <td>
             <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
           </td>
           <td></td>
         </tr>
-        </thead>
+      </thead>
         
-       <tbody>
-          <tr>
-            <th>name</tdh>
-            <th><%= current_user.name %></th>
-          </tr>
-          <tr>
-            <th>introduction</th>
-            <th><%= current_user.introduction %></th>
-          </tr>
-        </tbody>
+      <tbody>
+        <tr>
+          <th>name</tdh>
+          <th><%= current_user.name %></th>
+        </tr>
+        <tr>
+          <th>introduction</th>
+          <th><%= current_user.introduction %></th>
+        </tr>
+      </tbody>
      </table>
-    
+     
       <%= link_to edit_user_path(current_user) do %>
         <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
@@ -48,18 +49,18 @@
     
     
     <div class="new-book">
-    <h2>New book</h2>
+      <h2>New book</h2>
       <%= form_with model: @book, url:'/books', local:true do |f| %>
-      <h5>Title</h5>
-        <%= f.text_field :title, :class => 'title-field' %>
-      <h5>Opinion</h5>
-        <%= f.text_area :body, :class => 'body-field' %>
-      <p><%= f.submit ' Create Book ', :class => 'btn btn-primary new-book-field' %></p>
-    <% end %>
-  </div>
+        <h5>Title</h5>
+          <%= f.text_field :title, :class => 'title-field' %>
+        <h5>Opinion</h5>
+          <%= f.text_area :body, :class => 'body-field' %>
+        <p><%= f.submit ' Create Book ', :class => 'btn btn-primary new-book-field' %></p>
+      <% end %>
+    </div>
   </div>
   
-  <div class="col-xs-8">
+  <div class="col-xs-9">
     <h2>Books</h2>
       <table class="table table-hover">
         <thead>
@@ -70,17 +71,21 @@
         </tr>
         </thead>
       
-      <tbody>
-      <% @books.each do |book| %>
-        <tr>
-          <td><%= attachment_image_tag book.user, :profile_image, format:'jpeg', fallback: "no_image.jpg", size: "50x50" %></td>
-          <td><%= link_to "#{book.title}", book_path(book), {class: "table-link"} %></td>
-          <td><%= book.body %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
+        <tbody>
+          <% @books.each do |book| %>
+            <tr>
+              <td>
+                <%= link_to user_path(book.user_id) do %>
+                  <%= attachment_image_tag book.user, :profile_image, format:'jpeg', fallback: "no_image.jpg", size: "50x50" %>
+                <% end %>
+              </td>
+              <td><%= link_to "#{book.title}", book_path(book), {class: "table-link"} %></td>
+              <td><%= book.body %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
   </div>
 
-  </div>
+</div>
 </div>
