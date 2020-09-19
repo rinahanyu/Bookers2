@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="row">
+    
+ <% if @book.errors.any? %>
+    <div class = "error">
+      <h5>
+        <%= @book.errors.count %> errors prohibited this book from being saved:
+      </h5>
+      <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div> 
+  <% end %>
+
+  <div class="col-xs-4">
+    <div class="user-info">
+    <h2>User info</h2>
+    <table class="table">
+       <thead>
+        <tr>
+          <td>
+            <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+          </td>
+          <td></td>
+        </tr>
+        </thead>
+        
+       <tbody>
+          <tr>
+            <th>name</tdh>
+            <th><%= current_user.name %></th>
+          </tr>
+          <tr>
+            <th>introduction</th>
+            <th><%= current_user.introduction %></th>
+          </tr>
+        </tbody>
+    </table>
+
+    
+      <%= link_to edit_user_path(current_user) do %>
+        <button type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+        </button>
+      <% end %>
+    
+    </div>
+    
+    
+    <div class="new-book">
+    <h2>New book</h2>
+      <%= form_with model: @book, url:'/books', local:true do |f| %>
+      <h5>Title</h5>
+        <%= f.text_field :title, :class => 'title-field' %>
+      <h5>Opinion</h5>
+        <%= f.text_area :body, :class => 'body-field' %>
+      <p><%= f.submit ' Create Book ', :class => 'btn btn-primary new-book-field' %></p>
+    <% end %>
+  </div>
+  </div>
+  
+  <div class="col-xs-8">
+    <h2>Users</h2>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>image</th>
+          <th>name</th>
+          <th></th>
+        </tr>
+        </thead>
+      
+      <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image.jpg", size: "50x50" %></td>
+          <td><%= user.name %></td>
+          <td><%= link_to "Show", user_path(user), {class: "table-link"} %></td>
+        </tr>
+      <% end %>
+      </tbody>
+      
+    </table>
+  </div>
+
+
+  </div>
+</div>

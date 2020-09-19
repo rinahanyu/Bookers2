@@ -10,8 +10,7 @@
   </head>
 
   <body>
-    
-    <nav class="navbar navbar-inverse navbar-fixed">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
       <div class="nav navbar-nav navbar-left">
         <span class="navbar-brand">Bookers</span>
@@ -66,8 +65,14 @@
       </div>
       </div>
     </nav>
+
       
-    
+    <div class="container">
+      <div class="notification">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      </div>
+    </div>
     
     <%= yield %>
     

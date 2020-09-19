@@ -1,7 +1,18 @@
 <div class="container">
   <div class="row">
     
-
+  <% if @book.errors.any? %>
+    <div class = "error">
+      <h5>
+        <%= @book.errors.count %> errors prohibited this book from being saved:
+      </h5>
+      <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div> 
+  <% end %>
 
   <div class="col-xs-4">
     <div class="user-info">
@@ -28,12 +39,19 @@
         </tbody>
     </table>
 
-    
+    <% if @user.id == current_user.id %>
       <%= link_to edit_user_path(@user) do %>
         <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
         </button>
       <% end %>
+    <% else %>
+      <%= link_to user_path(current_user) do %>
+        <button type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+        </button>
+      <% end %>
+    <% end %>
     
     </div>
     
@@ -45,7 +63,7 @@
         <%= f.text_field :title, :class => 'title-field' %>
       <h5>Opinion</h5>
         <%= f.text_area :body, :class => 'body-field' %>
-      <p><%= f.submit ' Create Book ', :class => 'submit' %></p>
+      <p><%= f.submit ' Create Book ', :class => 'btn btn-primary new-book-field' %></p>
     <% end %>
   </div>
   </div>
