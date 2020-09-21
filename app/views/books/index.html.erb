@@ -13,52 +13,7 @@
     </div> 
   <% end %>
   
-  <div class="row">
-  <div class="col-xs-3">
-    
-    <div class="user-info">
-    <h2>User info</h2>
-     <table class="table">
-      <thead>
-        <tr>
-          <td>
-            <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
-          </td>
-          <td></td>
-        </tr>
-      </thead>
-        
-      <tbody>
-        <tr>
-          <th>name</tdh>
-          <th><%= current_user.name %></th>
-        </tr>
-        <tr>
-          <th>introduction</th>
-          <th><%= current_user.introduction %></th>
-        </tr>
-      </tbody>
-     </table>
-     
-      <%= link_to edit_user_path(current_user) do %>
-        <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-        </button>
-      <% end %>
-    </div>
-    
-    
-    <div class="new-book">
-      <h2>New book</h2>
-      <%= form_with model: @book, url:'/books', local:true do |f| %>
-        <th>Title</th>
-          <%= f.text_field :title, :class => 'title-field' %>
-        <h5>Opinion</h5>
-          <%= f.text_area :body, :class => 'body-field' %>
-        <p><%= f.submit ' Create Book ', :class => 'btn btn-primary new-book-field' %></p>
-      <% end %>
-    </div>
-  </div>
+  <%= render 'users/list', book: @book %>
   
   <div class="col-xs-9">
     <h2>Books</h2>
