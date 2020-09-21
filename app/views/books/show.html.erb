@@ -1,18 +1,5 @@
 <div class="container">
   <div class="row">
-    
-    <% if @book.errors.any? %>
-    <div class = "error">
-      <h5>
-        <%= @book.errors.count %> errors prohibited this book from being saved:
-      </h5>
-      <ul>
-        <% @book.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div> 
-    <% end %>
 
   <div class="col-xs-3">
   <div class="user-info">
@@ -21,7 +8,7 @@
        <thead>
         <tr>
           <td>
-            <%= attachment_image_tag @book1.user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+            <%= attachment_image_tag @book.user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
           </td>
           <td></td>
         </tr>
@@ -30,17 +17,17 @@
         <tbody>
           <tr>
             <th>name</tdh>
-            <th><%= @book1.user.name %></th>
+            <th><%= @book.user.name %></th>
           </tr>
           <tr>
             <th>introduction</th>
-            <th><%= @book1.user.introduction %></th>
+            <th><%= @book.user.introduction %></th>
           </tr>
         </tbody>
      </table>
     
-      <% if @book1.user.id == current_user.id %>
-        <%= link_to edit_user_path(@book1.user) do %>
+      <% if @book.user.id == current_user.id %>
+        <%= link_to edit_user_path(@book.user) do %>
           <button type="button" class="btn btn-default">
             <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
           </button>
@@ -57,7 +44,7 @@
     
     <div class="new-book">
     <h2>New book</h2>
-      <%= form_with model: @book, url:'/books', local:true do |f| %>
+      <%= form_with model: @book_, url:'/books', local:true do |f| %>
         <h5>Title</h5>
         <%= f.text_field :title, :class => 'title-field' %>
         <h5>Opinion</h5>
@@ -73,20 +60,20 @@
         <tbody>
         <tr>
           <td>
-            <%= attachment_image_tag @book1.user, :profile_image, format:'jpeg', fallback: "no_image.jpg", size: "100x100" %>
-            <P><%= link_to "#{@book1.user.name}", user_path(@book1.user), {class: "table-link"} %></P>
+            <%= attachment_image_tag @book.user, :profile_image, format:'jpeg', fallback: "no_image.jpg", size: "100x100" %>
+            <P><%= link_to "#{@book.user.name}", user_path(@book.user), {class: "table-link"} %></P>
           </td>
-          <td><%= link_to "#{@book1.title}", book_path(@book1), {class: "table-link"} %></td>
-          <td><%= @book1.body %></td>
+          <td><%= link_to "#{@book.title}", book_path(@book), {class: "table-link"} %></td>
+          <td><%= @book.body %></td>
           
-          <% if @book1.user.id == current_user.id %>
+          <% if @book.user.id == current_user.id %>
             <td>
-              <%= link_to edit_book_path(@book1) do %>
+              <%= link_to edit_book_path(@book) do %>
                 <button type="button" class="btn btn-success" >Edit</button>
               <% end %>
             </td>
             <td>
-              <%= link_to book_path(@book1), method: :delete, data: {confirm: "本当に消しますか？"} do %>
+              <%= link_to book_path(@book), method: :delete, data: {confirm: "本当に消しますか？"} do %>
                 <button type="button" class="btn btn-danger">Destroy</button>
               <% end %>
             </td>
